@@ -48,7 +48,7 @@ def get_object(bucket_name, key):
     return result
 
 def main():
-	# create_bucket('evan.au.cc.image-gallery', 'us-west-1')
+	create_bucket('evan.au.cc.image-gallery', 'us-west-1')
 
 if __name__ == '__main__':
 	main()

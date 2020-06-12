@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Add User{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+    <form method="POST">
+        <p>
+            <label for="first">Username</label>
+            <input id="username" name="username" type="text" required>
+        </p>
+        <p>
+            <label for="last">Password</label>
+            <input id="password" name="password" type="text" required>
+        </p>
+        <p>
+            <label for="last">Full Name</label>
+            <input id="full_name" name="full_name" type="text" required>
+        </p>
+        <input type="submit" value="Add User">
+    </form>
+
+{% endblock %}

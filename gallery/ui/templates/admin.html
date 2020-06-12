@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Users{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+    <table>
+        <thead>
+        <tr>
+            <th>username</th>
+            <th>full name</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for u in users %}
+            <tr style="border: solid 3px black;">
+                <td>{{ u.username }}</td>
+                <td>{{ u.full_name }}</td>
+                <td><a href="/admin/user/{{ u.username }}">Edit User</a></td>
+                <td><a href="/admin/delete-confirm/{{ u.username }}">Delete User</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/admin/add-user">Add user</a>
+
+{% endblock %}
