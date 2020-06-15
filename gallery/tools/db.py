@@ -1,8 +1,8 @@
 import psycopg2
 import json
 from .secrets import get_secret_image_gallery
-connection = None
 
+connection = None
 
 def get_secret():
     return json.loads(get_secret_image_gallery())
@@ -83,8 +83,6 @@ def edit_user(username, pw, full_name):
 
     new_pass = user[1]
     new_name = user[2]
-
-    print(username, pw, full_name)
 
     if pw:
         new_pass = pw

@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="aws (project level)">
-    <serverData>
-      <paths name="aws (project level)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/python-image-gallery" local="$PROJECT_DIR$" />
-          </mappings>
-        </serverdata>
-      </paths>
-    </serverData>
+  <component name="PublishConfigData" autoUpload="On explicit save action">
     <option name="myAutoUpload" value="ON_EXPLICIT_SAVE" />
   </component>
 </project>
