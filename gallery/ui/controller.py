@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from tools.db import get_users, connect, get_single_user, edit_user, delete_user, add_user
+from ..tools.db import get_users, connect, get_single_user, edit_user, delete_user, add_user
 
 
 def app_get_users():
@@ -23,11 +23,10 @@ def app_add_user():
 
 
 def app_modify_user(user):
-    username = request.form['username']
     password = request.form['password']
     full_name = request.form['full_name']
 
-    res = edit_user(username, password, full_name)
+    res = edit_user(user, password, full_name)
 
     if res:
         flash('Updated User')

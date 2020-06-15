@@ -9,16 +9,15 @@
     <table>
         <thead>
         <tr>
-            <th>username</th>
-            <th>full name</th>
+            <th align="left">username</th>
+            <th align="left">full name</th>
         </tr>
         </thead>
         <tbody>
         {% for u in users %}
-            <tr style="border: solid 3px black;">
-                <td>{{ u.username }}</td>
-                <td>{{ u.full_name }}</td>
-                <td><a href="/admin/user/{{ u.username }}">Edit User</a></td>
+            <tr height="30">
+                <td width="200"><a href="/admin/user/{{ u.username }}">{{ u.username }}</a></td>
+                <td width="200">{{ u.full_name }}</td>
                 <td><a href="/admin/delete-confirm/{{ u.username }}">Delete User</a></td>
             </tr>
         {% endfor %}
