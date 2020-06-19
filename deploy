@@ -8,5 +8,6 @@ fi
 BUCKET="evan.au.cc.image-gallery-config"
 
 aws s3 cp ec2-scripts/ec2-prod-$1.sh s3://${BUCKET}
-# aws s3 sync nginx s3://${BUCKET}/nginx
+aws s3 cp nginx/nginx.conf s3://${BUCKET}/nginx/nginx.conf
+aws s3 cp nginx/default.d/image_gallery.conf s3://${BUCKET}/nginx/default.d/image_gallery.conf
 
