@@ -18,38 +18,38 @@ admin = Blueprint('admin', __name__)
 def hello_world():
     return 'Hello, World!'
 
-#
-# @admin.route('/admin')
-# def admin():
-#     return render_template('admin.html', users=app_get_users())
-#
-#
-# @admin.route('/admin/user/<user>', methods=['GET', 'POST'])
-# def get_user(user):
-#     if request.method == 'POST':
-#         return app_modify_user(user)
-#     u = db.get_single_user(user)
-#     return render_template('user.html', user=u)
-#
-#
-# @admin.route('/admin/add-user', methods=['GET', 'POST'])
-# def add_user_route():
-#     if request.method == 'POST':
-#         return app_add_user()
-#     return render_template('add_user.html')
-#
-#
-# @admin.route('/admin/delete-confirm/<user>')
-# def delete_confirm(user):
-#     u = db.get_single_user(user)
-#     return render_template('delete_confirm.html', user=u)
-#
-#
-# @admin.route('/admin/delete/<user>', methods=['POST'])
-# def delete_handler(user):
-#     res = db.delete_user(user)
-#     if res:
-#         flash(f'{user} deleted')
-#         return redirect(url_for('admin'))
-#     else:
-#         return redirect(url_for('get_user', user=user))
+
+@admin.route('/admin')
+def admin_home():
+    return render_template('admin.html', users=app_get_users())
+
+
+@admin.route('/admin/user/<user>', methods=['GET', 'POST'])
+def get_user(user):
+    if request.method == 'POST':
+        return app_modify_user(user)
+    u = db.get_single_user(user)
+    return render_template('user.html', user=u)
+
+
+@admin.route('/admin/add-user', methods=['GET', 'POST'])
+def add_user_route():
+    if request.method == 'POST':
+        return app_add_user()
+    return render_template('add_user.html')
+
+
+@admin.route('/admin/delete-confirm/<user>')
+def delete_confirm(user):
+    u = db.get_single_user(user)
+    return render_template('delete_confirm.html', user=u)
+
+
+@admin.route('/admin/delete/<user>', methods=['POST'])
+def delete_handler(user):
+    res = db.delete_user(user)
+    if res:
+        flash(f'{user} deleted')
+        return redirect(url_for('admin'))
+    else:
+        return redirect(url_for('get_user', user=user))
