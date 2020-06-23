@@ -50,6 +50,6 @@ def delete_handler(user):
     res = db.delete_user(user)
     if res:
         flash(f'{user} deleted')
-        return redirect(url_for('admin'))
+        return redirect(url_for('admin.admin_home'))
     else:
-        return redirect(url_for('get_user', user=user))
+        return redirect(url_for('admin.get_user', user=user))

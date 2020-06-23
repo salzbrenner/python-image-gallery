@@ -17,7 +17,7 @@ def app_add_user():
 
     if res:
         flash(f'Added User {username}')
-        return redirect(url_for('admin'))
+        return redirect(url_for('admin.admin_home'))
     else:
         return 'No user'
 
@@ -30,6 +30,6 @@ def app_modify_user(user):
 
     if res:
         flash('Updated User')
-        return redirect(url_for('get_user', user=user))
+        return redirect(url_for('admin.get_user', user=user))
     else:
         return 'No user'
