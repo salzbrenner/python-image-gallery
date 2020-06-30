@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    Username: {{ user[0] }} <br>
-    Password: {{ user[1] }} <br>
-    Full Name: {{ user[2] }} <br>
+    Username: {{ user.username }} <br>
+    Password: {{ user.password }} <br>
+    Full Name: {{ user.full_name }} <br>
     <form method="POST">
 {#        <p>#}
 {#            <label for="first">Username</label>#}
@@ -29,7 +29,7 @@
     <a href="/admin/delete-confirm/{{ user[0] }}">Delete User</a>
 
     <br><br>
-    <a href="/admin">Back</a>
+    <a href="/admin/users">Back</a>
 
 
 {% endblock %}

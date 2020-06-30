@@ -7,8 +7,8 @@ import base64
 from botocore.exceptions import ClientError
 
 
-def get_secret_image_gallery():
-    secret_name = "sec-m5-image_gallery"
+def get_secret_flask_session():
+    secret_name = "sec-ig-flask_session"
     region_name = "us-west-1"
 
     # Create a Secrets Manager client

@@ -1,17 +1,9 @@
-import psycopg2
-from ..aws.secrets import get_secret_image_gallery
-import json
+from .User import User
 
 
-class UsersDAO():
-    def __init__(self):
-        secret = json.loads(get_secret_image_gallery())
-        self.connection = psycopg2.connect(
-            host=secret['host'],
-            dbname=secret['username'],
-            user=secret['username'],
-            password=secret['password']
-        )
+class UsersDAO:
+    def __init__(self, connection):
+        self.connection = connection
 
     def execute(self, query, dynamic_vars=None):
         cursor = self.connection.cursor()
@@ -26,10 +18,13 @@ class UsersDAO():
 
     def get_users(self):
         res = self.execute('select * from users;')
-        return res
+        users = []
+        for u in res:
+            users.append(User(u[0], u[1], u[2]))
+        return users
 
     def get_single_user(self, username):
-        res = self.execute("""
+        res = self.execute("""  
                         select * 
                         from users u 
                         where u.username = %s;
@@ -40,7 +35,7 @@ class UsersDAO():
             return None
 
         for row in res:
-            return row
+            return User(row[0], row[1], row[2])
 
     def add_user(self, username, pw, full_name):
         if not self.get_single_user(username):
@@ -56,8 +51,8 @@ class UsersDAO():
         if not user:
             return False
 
-        new_pass = user[1]
-        new_name = user[2]
+        new_pass = user.password
+        new_name = user.full_name
 
         if pw:
             new_pass = pw

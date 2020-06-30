@@ -1,14 +1,20 @@
 <!doctype html>
 <title>{% block title %}{% endblock %}</title>
 <nav>
-  <h1>Python Image Gallery</h1>
+    <h1>Python Image Gallery</h1>
 </nav>
 <section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash" style="border: solid 5px purple; ">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}
+    <header>
+        {% block header %}{% endblock %}
+        {% if session['username'] %}
+            {{ session['username'] }}<br>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
+    </header>
+    {% for message in get_flashed_messages() %}
+        <div class="flash" style="border: solid 5px purple; ">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
 </section>

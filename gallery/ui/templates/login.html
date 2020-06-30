@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Users{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="content-section">
+        <form method="POST" action="/login">
+            <h1>sodifjsodfij</h1>
+            Username: <input type="text" name="username" /><br>
+            Password: <input type="password" name="password" /><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+{% endblock %}
