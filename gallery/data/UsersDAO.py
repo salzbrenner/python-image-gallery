@@ -1,20 +1,8 @@
 from .User import User
+from .BaseDAO import BaseDAO
 
 
-class UsersDAO:
-    def __init__(self, connection):
-        self.connection = connection
-
-    def execute(self, query, dynamic_vars=None):
-        cursor = self.connection.cursor()
-        if dynamic_vars:
-            cursor.execute(query, dynamic_vars)
-        else:
-            cursor.execute(query)
-        return cursor
-
-    def save(self):
-        self.connection.commit()
+class UsersDAO(BaseDAO):
 
     def get_users(self):
         res = self.execute('select * from users;')

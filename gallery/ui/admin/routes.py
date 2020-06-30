@@ -17,7 +17,7 @@ admin = Blueprint('admin', __name__)
 
 
 def check_admin():
-    return 'username' in session and session['username'] == 'evan'
+    return 'username' in session and (session['username'] == 'evan' or session['username'] == 'dongji')
 
 
 def authenticate_admin(view):
@@ -30,9 +30,9 @@ def authenticate_admin(view):
     return decorated
 
 
-@admin.route('/')
-def hello_world():
-    return 'Hello, World!'
+@admin.route('/admin')
+def admin_redirect():
+    return redirect('/admin/users')
 
 
 @admin.route('/admin/users')

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .grid {
+            display: flex;
+        }
+
+        .grid-item {
+            width: 25%;
+            margin: 20px;
+        }
+
+        .grid-item img {
+            max-width: 100%;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="grid">
+        {% for image in images %}
+            <div class="grid-item">
+                <a href="/u/{{ username }}/image/{{ image.filename }}">
+                    <img src="{{ image.url }}">
+                </a>
+                <button>delete image</button>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+
+{% endblock %}

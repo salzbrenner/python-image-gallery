@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="content-section">
+        <ul>
+            {% if username %}
+                <li>
+                    <a href="/u/{{ username }}/images">View Images</a>
+                </li>
+                <li>
+                    <a href="/u/{{ username }}/upload">Upload Images</a>
+                </li>
+                <li>
+                    <a href="/admin/users">Admin</a>
+                </li>
+            {% else %}
+                <p>You need to <a href="/login">login</a></p>
+            {% endif %}
+
+        </ul>
+
+    </div>
+{% endblock %}
