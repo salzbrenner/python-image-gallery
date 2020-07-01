@@ -33,7 +33,20 @@ def upload_file(file, bucket, object_name=None):
             file,
             bucket,
             object_name,
-            ExtraArgs={'ACL': 'public-read'})
+            ExtraArgs={'ACL': 'public-read', 'ContentType': file.mimetype})
+        return True
+    except ClientError as e:
+        logging.error(e)
+        return False
+
+
+def delete_file(filename, bucket):
+    # Upload the file
+    s3_client = boto3.client('s3')
+    try:
+        response = s3_client.delete_object(
+            Bucket=bucket,
+            Key=filename)
         return True
     except ClientError as e:
         logging.error(e)

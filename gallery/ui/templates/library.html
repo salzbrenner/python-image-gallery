@@ -27,10 +27,12 @@
     <div class="grid">
         {% for image in images %}
             <div class="grid-item">
-                <a href="/u/{{ username }}/image/{{ image.filename }}">
+                <a href="{{ image.url }}">
                     <img src="{{ image.url }}">
                 </a>
-                <button>delete image</button>
+                <form action="/u/{{ username }}/delete/{{ image.filename }}" method="post">
+                    <input type="submit" value="Delete">
+                </form>
             </div>
         {% endfor %}
     </div>

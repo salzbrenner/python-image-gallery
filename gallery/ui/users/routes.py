@@ -10,7 +10,7 @@ from flask import (
 )
 from functools import wraps
 from werkzeug.utils import secure_filename
-from gallery.data.S3 import upload_file, get_object
+from gallery.data.S3 import upload_file, get_object, delete_file
 
 from gallery.ui import users_dao, images_dao
 
@@ -20,7 +20,7 @@ users = Blueprint('users', __name__)
 def is_logged_in(view):
     @wraps(view)
     def decorated(**kwargs):
-        if 'username' not in session or not session['username']:
+        if 'username' not in session or session['username'] not in request.path:
             return redirect('/login')
         return view(**kwargs)
     return decorated
@@ -75,10 +75,16 @@ def view_images(username):
     return render_template('library.html', images=images, username=username)
 
 
-@users.route('/u/<username>/image/<filename>')
-def view_single_image(username, filename):
-    url = get_image_url(filename)
-    return render_template('single_image.html', url=url)
+@users.route('/u/<username>/delete/<filename>', methods=['POST'])
+@is_logged_in
+def delete_image(username, filename):
+    res = delete_file(filename, current_app.config['IMAGE_BUCKET'])
+
+    if res:
+        images_dao.delete_image(username, filename)
+        flash(f'{filename} deleted')
+
+    return redirect(url_for('users.view_images', username=username))
 
 
 @users.route('/u/<username>/upload', methods=['GET', 'POST'])
