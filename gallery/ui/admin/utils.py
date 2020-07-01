@@ -1,12 +1,20 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
+from functools import wraps
 from .. import users_dao
 
 
-def app_get_users():
-    # users = []
-    # for u in users_dao.get_users():
-    #     users.append({'username': u[0], 'full_name': u[2]})
-    return users_dao.get_users()
+def check_admin():
+    return 'username' in session and (session['username'] == 'evan' or session['username'] == 'dongji')
+
+
+def authenticate_admin(view):
+    @wraps(view)
+    def decorated(**kwargs):
+        if not check_admin():
+            return redirect('/login')
+        session['is_admin'] = True
+        return view(**kwargs)
+    return decorated
 
 
 def app_add_user():

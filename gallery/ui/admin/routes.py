@@ -8,26 +8,11 @@ from flask import (
     Blueprint,
     session
 )
-from functools import wraps
 from .. import users_dao
-from .utils import app_modify_user, app_get_users, app_add_user
+from .utils import app_modify_user, app_add_user, authenticate_admin
 
 
 admin = Blueprint('admin', __name__)
-
-
-def check_admin():
-    return 'username' in session and (session['username'] == 'evan' or session['username'] == 'dongji')
-
-
-def authenticate_admin(view):
-    @wraps(view)
-    def decorated(**kwargs):
-        if not check_admin():
-            return redirect('/login')
-        session['is_admin'] = True
-        return view(**kwargs)
-    return decorated
 
 
 @admin.route('/admin')
@@ -38,7 +23,7 @@ def admin_redirect():
 @admin.route('/admin/users')
 @authenticate_admin
 def admin_home():
-    return render_template('admin.html', users=app_get_users())
+    return render_template('admin.html', users=users_dao.get_users())
 
 
 @admin.route('/admin/user/<user>', methods=['GET', 'POST'])
