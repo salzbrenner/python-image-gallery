@@ -47,16 +47,20 @@ def add_user_route():
 @authenticate_admin
 def delete_confirm(user):
     u = users_dao.get_single_user(user)
-    return render_template('delete_confirm.html', user=u)
+    print(u)
+    return render_template('delete_confirm.html', username=u.username)
 
 
-@admin.route('/admin/delete/<user>', methods=['POST'])
+@admin.route('/admin/delete/<username>', methods=['POST'])
 @authenticate_admin
-def delete_handler(user):
-    res = users_dao.delete_user(user)
+def delete_handler(username):
+    res = users_dao.delete_user(username)
     if res:
-        flash(f'{user} deleted')
-        return redirect(url_for('admin.admin_home'))
+        if username == session['username']:
+            return redirect('/logout')
+        else:
+            flash(f'{username} deleted')
+            return redirect(url_for('admin.admin_home'))
     else:
-        return redirect(url_for('admin.get_user', user=user))
+        return redirect(url_for('admin.get_user', user=username))
 

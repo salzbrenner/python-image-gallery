@@ -1,1 +1,0 @@
-CREATE TABLE if not exists images (id SERIAL PRIMARY KEY,username VARCHAR(100) NOT NULL, filename VARCHAR(500) NOT NULL);

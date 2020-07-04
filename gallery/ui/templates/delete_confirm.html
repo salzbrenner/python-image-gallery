@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Are you sure you want to delete {{ user[0] }}? {% endblock %}</h1>
+  <h1>{% block title %}Are you sure you want to delete {{ username }}? {% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 
-    {% with username=user[0] %}
+    {% with username=username %}
         {% include 'delete.html' %}
     {% endwith %}
 

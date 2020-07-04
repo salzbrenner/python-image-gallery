@@ -22,8 +22,8 @@ class UsersDAO(BaseDAO):
         if res.rowcount == 0:
             return None
 
-        for row in res:
-            return User(row[0], row[1], row[2])
+        row = res.fetchone()
+        return User(row[0], row[1], row[2])
 
     def add_user(self, username, pw, full_name):
         if not self.get_single_user(username):

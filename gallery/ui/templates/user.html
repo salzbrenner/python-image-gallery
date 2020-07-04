@@ -9,10 +9,6 @@
     Password: {{ user.password }} <br>
     Full Name: {{ user.full_name }} <br>
     <form method="POST">
-{#        <p>#}
-{#            <label for="first">Username</label>#}
-{#            <input id="username" value="{{ user[0] }}" name="username" type="text" required>#}
-{#        </p>#}
         <p>
             <label for="last">Password</label>
             <input id="password" name="password" type="text" required>
@@ -26,7 +22,7 @@
 
     <br><br>
 
-    <a href="/admin/delete-confirm/{{ user[0] }}">Delete User</a>
+    <a href="/admin/delete-confirm/{{ user.username }}">Delete User</a>
 
     <br><br>
     <a href="/admin/users">Back</a>

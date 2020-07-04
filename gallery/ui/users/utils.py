@@ -9,8 +9,8 @@ from flask import (
     current_app
 )
 from werkzeug.utils import secure_filename
-from gallery.ui import users_dao, images_dao
-from gallery.data.S3 import upload_file, get_object, delete_file
+from gallery.ui import images_dao
+from gallery.data.S3 import upload_file
 from functools import wraps
 
 
