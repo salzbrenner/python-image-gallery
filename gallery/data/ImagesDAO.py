@@ -11,22 +11,30 @@ class ImagesDAO(BaseDAO):
                            (username,))
         images = []
         for row in res:
-            images.append(row[2])
+            images.append(Image(row[0], row[1], row[2]))
         return images
 
-    def get_single_image(self, username, filename):
-        res = self.execute("""select * from 
-                                    images img 
-                                    where img.username = %s
-                                    and img.filename = %s;
-                                    """,
-                           (username, filename))
+    def get_single_image(self, username=None, filename=None, image_id=None):
+
+        if image_id:
+            res = self.execute("""select * from 
+                                       images img 
+                                       where img.id = %s
+                                       """,
+                               (image_id))
+        else:
+            res = self.execute("""select * from 
+                                        images img 
+                                        where img.username = %s
+                                        and img.filename = %s;
+                                        """,
+                               (username, filename))
 
         if res.rowcount == 0:
             return None
 
         for row in res:
-            return Image(row[1], row[2])
+            return Image(row[0], row[1], row[2])
 
     def delete_image(self, username, filename):
         self.execute("""delete from 
@@ -40,7 +48,7 @@ class ImagesDAO(BaseDAO):
         return True
 
     def add_image(self, username, filename):
-        if not filename in self.get_images(username):
+        if not any(d['filename'] == filename for d in self.get_images(username)):
             self.execute("insert into images values (DEFAULT, %s, %s);",
                          (username, filename))
             self.save()

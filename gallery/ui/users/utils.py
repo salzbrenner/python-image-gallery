@@ -42,7 +42,7 @@ def app_add_image(username):
         return redirect(request.url)
 
     if file and allowed_file(file.filename):
-        file.filename = secure_filename(file.filename)
+        file.filename = f'{username}/{secure_filename(file.filename)}'
 
         # image already exists
         if images_dao.get_single_image(username, file.filename):

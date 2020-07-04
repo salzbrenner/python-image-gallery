@@ -49,26 +49,29 @@ def logout():
 @users.route('/images')
 @is_logged_in
 def view_images():
-    image_paths = images_dao.get_images(session['username'])
+    image_q = images_dao.get_images(session['username'])
     images = []
 
-    for filename in image_paths:
-        obj = get_object(current_app.config['IMAGE_BUCKET'], filename)
+    for img in image_q:
+        obj = get_object(current_app.config['IMAGE_BUCKET'], img.filename)
         if obj:
-            url = get_image_url(filename)
-            images.append({'filename': filename, 'url': url})
+            url = get_image_url(img.filename)
+            images.append({'filename': img.filename, 'url': url, 'id': img.id})
 
     return render_template('library.html', images=images, username=session['username'])
 
 
-@users.route('/delete/<filename>', methods=['POST'])
+@users.route('/delete/<image_id>', methods=['POST'])
 @is_logged_in
-def delete_image(filename):
-    res = delete_file(filename, current_app.config['IMAGE_BUCKET'])
+def delete_image(image_id):
+    image = images_dao.get_single_image(image_id=image_id)
+    # res = delete_file(image_id, current_app.config['IMAGE_BUCKET'])
+    if image:
+        res = delete_file(image.filename, current_app.config['IMAGE_BUCKET'])
 
-    if res:
-        images_dao.delete_image(session['username'], filename)
-        flash(f'{filename} deleted')
+        if res:
+            images_dao.delete_image(session['username'], image.filename)
+            flash(f'{image.filename} deleted')
 
     return redirect(url_for('users.view_images', username=session['username']))
 
