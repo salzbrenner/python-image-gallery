@@ -1,0 +1,10 @@
+.env
+.env.docker
+.DS_Store
+.idea
+
+.git
+.gitignore
+
+nginx
+ec2-scripts

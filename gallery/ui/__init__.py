@@ -16,7 +16,7 @@ images_dao = ImagesDAO(db)
 def create_app():
     app = Flask(__name__)
     # app.secret_key = session_secret['flask_secret'].encode()
-    app.secret_key = os.environ.get('FLASK_SECRET')
+    app.secret_key = 'asodfijoasdijf77777'
     app.config['IMAGE_BUCKET'] = os.environ.get('S3_IMAGE_BUCKET')
     app.config['REGION'] = 'us-west-1'
 
